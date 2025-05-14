@@ -4,6 +4,7 @@ import { Geist } from "next/font/google";
 import { api } from "~/utils/api";
 
 import "~/styles/globals.css";
+import Sidebar from "~/components/Sidebar";
 
 const geist = Geist({
   subsets: ["latin"],
@@ -11,7 +12,8 @@ const geist = Geist({
 
 const MyApp: AppType = ({ Component, pageProps }) => {
   return (
-    <div className={geist.className}>
+    <div className={`${geist.className} flex flex-row`}>
+      <Sidebar />
       <Component {...pageProps} />
     </div>
   );
