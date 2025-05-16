@@ -1,5 +1,6 @@
 import DatePicker from "~/components/DatePicker";
 import TimePicker from "~/components/TimePicker";
+import ActiveAlerts from "~/components/widgets/ActiveAlerts";
 
 export default function Home() {
   return (
@@ -15,7 +16,9 @@ export default function Home() {
         {/* Row 1 */}
         <div className="col-span-2 border"></div>
         <div className="border"></div>
-        <div className="border"></div>
+        <div className="">
+          <ActiveAlerts />
+        </div>
 
         {/* Row 2 */}
         <div className="row-span-2 border"></div>
