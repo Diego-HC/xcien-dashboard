@@ -19,15 +19,16 @@ export default function ActiveAlerts() {
             <div className="flex flex-col gap-3 flex-grow justify-center">
                 {/* Críticas */}
                 <div className="flex items-center gap-3">
-                    <div className="flex flex-col items-center justify-center w-14 h-14 rounded bg-red-100">
+                    <div className="flex items-center justify-center gap-4 w-25 h-14 rounded bg-red-100">
                         <EyeIcon className="w-6 h-6 text-red-600" />
+                
                         <span className="text-lg font-bold text-red-700">{criticalAlerts}</span>
                     </div>
                     <span className="ml-2 text-md text-gray-700">Críticas</span>
                 </div>
                 {/* Advertencias */}
                 <div className="flex items-center gap-3">
-                    <div className="flex flex-col items-center justify-center w-14 h-14 rounded bg-yellow-100">
+                    <div className="flex items-center gap-4 justify-center w-25 h-14 rounded bg-yellow-100">
                         <ExclamationTriangleIcon className="w-6 h-6 text-yellow-500" />
                         <span className="text-lg font-bold text-yellow-600">{warningAlerts}</span>
                     </div>
