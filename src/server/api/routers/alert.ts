@@ -7,9 +7,6 @@ import type { AlertSeverity } from "~/utils/types";
 export const alertRouter = createTRPCRouter({
     get: publicProcedure
     .query(async () => {
-      console.log(env.OBSERVIUM_API_BASE_URL);
-      console.log(env.OBSERVIUM_API_USERNAME);
-  
       const alerts = await fetch(env.OBSERVIUM_API_BASE_URL + "alerts", {
         method: "GET",
         headers: {
@@ -20,7 +17,6 @@ export const alertRouter = createTRPCRouter({
         },
       });
   
-      console.log("Alerts response:", alerts);
       if (!alerts.ok) {
         console.error("Error fetching alerts:", alerts.statusText);
         throw new Error("Failed to fetch alerts");
@@ -72,8 +68,6 @@ export const alertRouter = createTRPCRouter({
             humanized: true
           }>;
         };
-  
-        console.log("Alerts data:", data);
   
         // Transform the alerts object into an array for easier handling
         const parsedAlerts = Object.values(data.alerts).map((alert) => ({
