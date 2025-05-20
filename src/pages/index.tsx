@@ -16,7 +16,7 @@ export default function Home() {
         {/* Row 1 */}
         <div className="col-span-2 border"></div>
         <div className="border"></div>
-        <div className="">
+        <div>
           <ActiveAlerts />
         </div>
 

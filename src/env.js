@@ -11,6 +11,9 @@ export const env = createEnv({
     NODE_ENV: z
       .enum(["development", "test", "production"])
       .default("development"),
+    OBSERVIUM_API_BASE_URL: z.string().url(),
+    OBSERVIUM_API_USERNAME: z.string(),
+    OBSERVIUM_API_PASSWORD: z.string(),
   },
 
   /**
@@ -29,6 +32,9 @@ export const env = createEnv({
   runtimeEnv: {
     DATABASE_URL: process.env.DATABASE_URL,
     NODE_ENV: process.env.NODE_ENV,
+    OBSERVIUM_API_BASE_URL: process.env.OBSERVIUM_API_BASE_URL,
+    OBSERVIUM_API_USERNAME: process.env.OBSERVIUM_API_USERNAME,
+    OBSERVIUM_API_PASSWORD: process.env.OBSERVIUM_API_PASSWORD,
     // NEXT_PUBLIC_CLIENTVAR: process.env.NEXT_PUBLIC_CLIENTVAR,
   },
   /**

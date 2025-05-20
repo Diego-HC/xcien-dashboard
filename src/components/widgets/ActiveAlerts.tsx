@@ -1,12 +1,34 @@
-import { useState } from "react";
 import SeeMore from "./SeeMore";
 import { EyeIcon, ExclamationTriangleIcon } from "@heroicons/react/24/solid";
+import { LuInfo } from "react-icons/lu";
+import { useMemo } from "react";
+import { api } from "~/utils/api";
+import { AlertSeverity } from "~/utils/types";
 
 export const widgetName = "ActiveAlerts";
 
 export default function ActiveAlerts() {
-  const [criticalAlerts, setCriticalAlerts] = useState(4);
-  const [warningAlerts, setWarningAlerts] = useState(7);
+  const alerts = api.alert.get.useQuery();
+
+  const { criticalAlerts, warningAlerts, otherAlerts } = useMemo(() => {
+    if (!alerts.data?.alerts) {
+      return { criticalAlerts: 0, warningAlerts: 0, otherAlerts: 0 };
+    }
+
+    return alerts.data.alerts.reduce(
+      (acc, alert) => {
+        if (alert.severity === AlertSeverity.CRITICAL) {
+          acc.criticalAlerts += 1;
+        } else if (alert.severity === AlertSeverity.WARNING) {
+          acc.warningAlerts += 1;
+        } else {
+          acc.otherAlerts += 1;
+        }
+        return acc;
+      },
+      { criticalAlerts: 0, warningAlerts: 0, otherAlerts: 0 },
+    );
+  }, [alerts.data?.alerts]);
 
   return (
     <div className="flex h-full w-full min-w-0 flex-col justify-between rounded-lg border border-gray-200 bg-white p-4 shadow-sm">
@@ -37,6 +59,16 @@ export default function ActiveAlerts() {
             </span>
           </div>
           <span className="text-md ml-2 text-gray-700">Advertencias</span>
+        </div>
+        {/* Otros */}
+        <div className="flex items-center gap-3">
+          <div className="flex h-14 w-25 items-center justify-center gap-4 rounded bg-gray-100">
+            <LuInfo className="h-6 w-6 text-gray-600" />
+            <span className="text-lg font-bold text-gray-700">
+              {otherAlerts}
+            </span>
+          </div>
+          <span className="text-md ml-2 text-gray-700">Otros</span>
         </div>
       </div>
     </div>
