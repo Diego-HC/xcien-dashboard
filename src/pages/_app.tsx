@@ -14,7 +14,9 @@ const MyApp: AppType = ({ Component, pageProps }) => {
   return (
     <div className={`${geist.className} flex flex-row`}>
       <Sidebar />
-      <Component {...pageProps} />
+      <div className="ml-24 flex-1">
+        <Component {...pageProps} />
+      </div>
     </div>
   );
 };
