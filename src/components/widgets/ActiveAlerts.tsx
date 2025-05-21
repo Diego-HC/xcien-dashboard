@@ -34,7 +34,7 @@ export default function ActiveAlerts() {
     <div className="flex h-full w-full min-w-0 flex-col justify-between rounded-lg border border-gray-200 bg-white p-4 shadow-sm">
       {/* Header stays at the top */}
       <div className="flex items-center justify-between">
-        <h2 className="text-base font-semibold">Alertas Activas</h2>
+        <h2 className="text-xl font-semibold">Alertas Activas</h2>
         <SeeMore />
       </div>
       {/* Alerts centered vertically */}

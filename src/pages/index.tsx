@@ -1,6 +1,7 @@
 import DatePicker from "~/components/DatePicker";
 import TimePicker from "~/components/TimePicker";
 import ActiveAlerts from "~/components/widgets/ActiveAlerts";
+import LocationCapacity from "~/components/widgets/LocationCapacity";
 
 export default function Home() {
   return (
@@ -14,7 +15,9 @@ export default function Home() {
       {/* Widgets */}
       <div className="grid grow grid-cols-4 gap-4">
         {/* Row 1 */}
-        <div className="col-span-2 border"></div>
+        <div className="col-span-2">
+          <LocationCapacity />
+        </div>
         <div className="border"></div>
         <div>
           <ActiveAlerts />
