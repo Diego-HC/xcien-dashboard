@@ -16,7 +16,7 @@ export default function Home() {
       <div className="grid grow grid-cols-4 gap-4">
         {/* Row 1 */}
         <div className="col-span-2 border"></div>
-        <div className="">
+        <div>
           <DeviceStatus />
         </div>
         <div>
