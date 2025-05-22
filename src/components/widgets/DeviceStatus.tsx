@@ -16,11 +16,6 @@ export default function DeviceStatus() {
 
   const devicesByState = devices.data?.deviceStatusByState;
 
-  // TODO: Add color scheme to percentages:
-  // 100 - 75 green
-  // 75 - 50 yellow
-  // 50 > red
-
   const top5 = useMemo(() => {
     if (!devicesByState) return [];
 
