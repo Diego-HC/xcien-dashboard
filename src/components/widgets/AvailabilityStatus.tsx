@@ -1,15 +1,10 @@
 import SeeMore from "./SeeMore";
 import { api } from "~/utils/api";
+import { gtSeverityColor } from "~/utils/utils";
 import { useMemo } from "react";
 import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
 
 export const widgetName = "AvailabilityStatus";
-
-function gtChartColor(result: number) {
-  if (result >= 75) return "#4CAF50";
-  if (result >= 50) return "#FBBF24";
-  return "#F44336";
-}
 
 export default function AvailabilityStatus() {
   const devices = api.device.get.useQuery();
@@ -50,7 +45,7 @@ export default function AvailabilityStatus() {
               outerRadius={70}
               paddingAngle={2}
             >
-              <Cell key="up" fill={gtChartColor(availability)} />
+              <Cell key="up" fill={gtSeverityColor(availability)} />
               <Cell key="down" fill="#E5E7EB" />
             </Pie>
           </PieChart>
