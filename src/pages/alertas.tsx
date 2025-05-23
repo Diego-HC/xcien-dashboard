@@ -13,8 +13,8 @@ export default function Alertas() {
   const handleFromChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newFromDate = e.target.value;
     setFromDate(newFromDate);
-    // Si la fecha "desde" es mayor que la fecha "hasta", actualizamos "hasta" para igualar "desde"
-    if (newFromDate > toDate) {
+    // Si la fecha "desde" es mayor que la fecha "hasta" o "toDate" es undefined, actualizamos "hasta" para igualar "desde"
+    if (!toDate || newFromDate > toDate) {
       setToDate(newFromDate);
     }
   };
