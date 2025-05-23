@@ -1,7 +1,6 @@
 import SeeMore from "./SeeMore";
 import { api } from "~/utils/api";
 import { useMemo } from "react";
-import { error } from "console";
 
 export const widgetName = "DeviceStatus";
 
@@ -54,14 +53,9 @@ export default function DeviceStatus() {
               <tr key={state} className="justify-between">
                 <td className="text-left text-sm text-gray-900">{state}</td>
                 <td className="text-center text-sm text-gray-600 italic">
-                  <span                     className={`
-                      inline-block
-                      px-2 py-2
-                      rounded-md
-                      text-white
-                      text-sm font-medium
-                      ${gtPercentageColor(result)}
-                    `}>
+                  <span
+                    className={`inline-block rounded-md px-2 py-2 text-sm font-medium text-white ${gtPercentageColor(result)} `}
+                  >
                     {result.toPrecision(2)} %
                   </span>
                 </td>

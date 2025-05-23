@@ -2,6 +2,7 @@ import DatePicker from "~/components/DatePicker";
 import TimePicker from "~/components/TimePicker";
 import ActiveAlerts from "~/components/widgets/ActiveAlerts";
 import DeviceStatus from "~/components/widgets/DeviceStatus";
+import AvailabilityStatus from "~/components/widgets/AvailabilityStatus";
 
 export default function Home() {
   return (
@@ -24,7 +25,9 @@ export default function Home() {
         </div>
 
         {/* Row 2 */}
-        <div className="row-span-2 border"></div>
+        <div>
+          <AvailabilityStatus />
+        </div>
         <div className="col-span-2 border"></div>
         <div className="border"></div>
 
