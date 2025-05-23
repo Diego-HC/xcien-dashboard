@@ -25,7 +25,7 @@ export default function Home() {
         </div>
 
         {/* Row 2 */}
-        <div>
+        <div className="row-span-2">
           <AvailabilityStatus />
         </div>
         <div className="col-span-2 border"></div>
