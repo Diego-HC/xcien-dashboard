@@ -14,6 +14,7 @@ export const env = createEnv({
     OBSERVIUM_API_BASE_URL: z.string().url(),
     OBSERVIUM_API_USERNAME: z.string(),
     OBSERVIUM_API_PASSWORD: z.string(),
+    
   },
 
   /**
@@ -23,6 +24,7 @@ export const env = createEnv({
    */
   client: {
     // NEXT_PUBLIC_CLIENTVAR: z.string(),
+    
   },
 
   /**
@@ -36,6 +38,7 @@ export const env = createEnv({
     OBSERVIUM_API_USERNAME: process.env.OBSERVIUM_API_USERNAME,
     OBSERVIUM_API_PASSWORD: process.env.OBSERVIUM_API_PASSWORD,
     // NEXT_PUBLIC_CLIENTVAR: process.env.NEXT_PUBLIC_CLIENTVAR,
+    
   },
   /**
    * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially
@@ -46,5 +49,7 @@ export const env = createEnv({
    * Makes it so that empty strings are treated as undefined. `SOME_VAR: z.string()` and
    * `SOME_VAR=''` will throw an error.
    */
+  
   emptyStringAsUndefined: true,
 });
+
