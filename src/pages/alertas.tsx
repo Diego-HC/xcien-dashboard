@@ -38,7 +38,7 @@ export default function Alertas() {
         new Date(toDate + "T23:59:59Z").getTime() / 1000
       );
       return alertTimestamp >= fromTimestamp && alertTimestamp <= toTimestamp;
-    }) || [];
+    }) ?? [];
 
   const formatDate = (timestamp: string) => {
     const ts = Number(timestamp);
