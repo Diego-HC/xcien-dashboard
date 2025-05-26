@@ -4,8 +4,6 @@ import { gtSeverityColor } from "~/utils/utils";
 import { useMemo } from "react";
 import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
 
-export const widgetName = "ProcessorsStatus";
-
 export default function ProcessorsStatus() {
   const processors = api.processor.get.useQuery();
 

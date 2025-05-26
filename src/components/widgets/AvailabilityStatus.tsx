@@ -4,8 +4,6 @@ import { gtSeverityColor } from "~/utils/utils";
 import { useMemo } from "react";
 import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
 
-export const widgetName = "AvailabilityStatus";
-
 export default function AvailabilityStatus() {
   const devices = api.device.get.useQuery();
   const devicesByState = devices.data?.deviceStatusByState;
