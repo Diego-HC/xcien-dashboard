@@ -6,7 +6,7 @@ const getTodayString = () => new Date().toISOString().split("T")[0];
 
 export default function Alertas() {
   const alerts = api.alert.get.useQuery();
-  const devices = api.device.get.useQuery();
+  const devices = api.device.get.useQuery({});
   const [fromDate, setFromDate] = useState("2024-01-04");
   const [toDate, setToDate] = useState(getTodayString());
 
@@ -31,11 +31,11 @@ export default function Alertas() {
       if (alertTimestamp === 0) return false;
       // Convierte la fecha de inicio a unix timestamp (segundos) en UTC
       const fromTimestamp = Math.floor(
-        new Date(fromDate + "T00:00:00Z").getTime() / 1000
+        new Date(fromDate + "T00:00:00Z").getTime() / 1000,
       );
       // Convierte la fecha fin al final del día (23:59:59) en unix timestamp (segundos) en UTC
       const toTimestamp = Math.floor(
-        new Date(toDate + "T23:59:59Z").getTime() / 1000
+        new Date(toDate + "T23:59:59Z").getTime() / 1000,
       );
       return alertTimestamp >= fromTimestamp && alertTimestamp <= toTimestamp;
     }) ?? [];
@@ -54,9 +54,9 @@ export default function Alertas() {
 
   return (
     <div className="p-4">
-      <h1 className="text-3xl font-bold mb-4">Alertas</h1>
+      <h1 className="mb-4 text-3xl font-bold">Alertas</h1>
 
-      <div className="flex items-center gap-4 mb-4">
+      <div className="mb-4 flex items-center gap-4">
         <div>
           <label className="font-medium">Desde:</label>
           <input
@@ -64,7 +64,7 @@ export default function Alertas() {
             value={fromDate}
             max={getTodayString()}
             onChange={handleFromChange}
-            className="ml-2 border rounded px-2 py-1"
+            className="ml-2 rounded border px-2 py-1"
           />
         </div>
         <div>
@@ -75,7 +75,7 @@ export default function Alertas() {
             min={fromDate}
             max={getTodayString()}
             onChange={handleToChange}
-            className="ml-2 border rounded px-2 py-1"
+            className="ml-2 rounded border px-2 py-1"
           />
         </div>
       </div>
@@ -95,7 +95,7 @@ export default function Alertas() {
           {alerts.data && devices.data ? (
             filteredAlerts.map((alert) => {
               const device = devices.data.devices.find(
-                (d) => d.deviceId === alert.deviceId
+                (d) => d.deviceId === alert.deviceId,
               );
               return (
                 <tr key={alert.alertTableId} className="border-t">
@@ -104,7 +104,7 @@ export default function Alertas() {
                   <td className="p-2">{alert.status}</td>
                   <td className="p-2">{formatDate(alert.lastAlerted)}</td>
                   <td className="p-2">{formatDate(alert.lastChecked)}</td>
-                  <td className="p-2 text-blue-500 cursor-pointer hover:underline">
+                  <td className="cursor-pointer p-2 text-blue-500 hover:underline">
                     Ver más &gt;
                   </td>
                 </tr>
