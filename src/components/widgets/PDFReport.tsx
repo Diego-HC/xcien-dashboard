@@ -7,7 +7,7 @@ import DeviceStatus from "./DeviceStatus";
 import Histogram from "./Histogram";
 import ProcessorsStatus from "./ProcessorsStatus";
 import { LuDownload } from "react-icons/lu";
-
+import DatePicker from "../DatePicker";
 interface PDFReportProps {
   dateRange: [string, string];
 }
@@ -109,6 +109,7 @@ export default function PDFReport({ dateRange }: PDFReportProps) {
             padding: "20px",
           }}
         >
+          <DatePicker dateRange={dateRange} setDateRange={() => null} />
           <section className="pdf-widget">
             <ActiveAlerts dateRange={dateRange} />
           </section>
