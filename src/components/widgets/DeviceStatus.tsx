@@ -3,8 +3,15 @@ import { api } from "~/utils/api";
 import { gtSeverityColor } from "~/utils/utils";
 import { useMemo } from "react";
 
-export default function DeviceStatus() {
-  const devices = api.device.get.useQuery();
+interface DeviceStatusProps {
+  dateRange: [string, string];
+}
+
+export default function DeviceStatus({ dateRange }: DeviceStatusProps) {
+  const devices = api.device.get.useQuery({
+    startDate: dateRange[0],
+    endDate: dateRange[1],
+  });
 
   const devicesByState = devices.data?.deviceStatusByState;
 
