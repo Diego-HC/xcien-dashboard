@@ -3,6 +3,7 @@ import { createCallerFactory, createTRPCRouter } from "~/server/api/trpc";
 import { alertRouter } from "./routers/alert";
 import { deviceRouter } from "./routers/device";
 import { processorRouter } from "./routers/processor";
+import { mempoolRouter } from "./routers/mempool";
 
 /**
  * This is the primary router for your server.
@@ -13,7 +14,8 @@ export const appRouter = createTRPCRouter({
   post: postRouter,
   alert: alertRouter,
   device: deviceRouter,
-  processor: processorRouter
+  processor: processorRouter,
+  mempool: mempoolRouter
 });
 
 // export type definition of API

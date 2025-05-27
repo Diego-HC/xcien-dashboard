@@ -4,31 +4,31 @@ import { gtSeverityColor } from "~/utils/utils";
 import { useMemo } from "react";
 import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
 
-interface ProcessorsStatusProps {
+interface MemoryPoolStatusProps {
   dateRange: [string, string];
 }
 
-export default function ProcessorsStatus({ dateRange }: ProcessorsStatusProps) {
-  const processors = api.processor.get.useQuery();
+export default function MemoryPoolStatus({ dateRange }: MemoryPoolStatusProps) {
+  const mempools = api.mempool.get.useQuery();
 
   const usage = useMemo(() => {
-    const procs = processors.data?.processors;
-    if (!procs) return 0;
+    const memps = mempools.data?.mempoolPercentage;
+    if (!memps) return 0;
 
     let total = 0;
     let count = 0;
 
-    Object.values(procs).forEach((proc) => {
+    Object.values(memps).forEach((memp) => {
       if (dateRange) {
-        const processorDate = new Date(Number(proc.processorPolled) * 1000);
+        const mempoolDate = new Date(Number(memp.mempoolPolled) * 1000);
         const startDate = new Date(dateRange[0]);
         const endDate = new Date(dateRange[1]);
-        if (processorDate < startDate || processorDate > endDate) {
+        if (mempoolDate < startDate || mempoolDate > endDate) {
           return;
         }
       }
-      
-      const u = Number(proc.processorUsage);
+
+      const u = Number(memp.mempoolPercentage);
       if (!isNaN(u)) {
         total += u;
         count += 1;
@@ -36,7 +36,7 @@ export default function ProcessorsStatus({ dateRange }: ProcessorsStatusProps) {
     });
 
     return count > 0 ? total / count : 0;
-  }, [processors.data, dateRange]);
+  }, [mempools.data, dateRange]);
 
   const chartData = [
     { name: "use", value: usage },
@@ -46,7 +46,7 @@ export default function ProcessorsStatus({ dateRange }: ProcessorsStatusProps) {
   return (
     <div className="flex h-full w-full flex-col gap-4 rounded-lg border border-gray-200 bg-white p-4 shadow-sm">
       <div className="flex items-center justify-between">
-        <h2 className="text-xl font-semibold">% de uso de procesadores</h2>
+        <h2 className="text-xl font-semibold">% de uso de memorias</h2>
         <SeeMore />
       </div>
 
@@ -67,9 +67,7 @@ export default function ProcessorsStatus({ dateRange }: ProcessorsStatusProps) {
             </Pie>
           </PieChart>
         </ResponsiveContainer>
-        <div className="absolute text-2xl font-bold">
-            {usage.toFixed(0)} %
-        </div>
+        <div className="absolute text-2xl font-bold">{usage.toFixed(0)} %</div>
       </div>
     </div>
   );
