@@ -175,6 +175,7 @@ export const deviceRouter = createTRPCRouter({
           purpose: device.purpose,
           type: device.type,
           location: device.location,
+          locationCity: device.location_city,
           // TODO: Add other fields if needed
         }));
 

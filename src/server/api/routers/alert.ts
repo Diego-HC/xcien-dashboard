@@ -79,6 +79,8 @@ export const alertRouter = createTRPCRouter({
           severity: alert.severity as AlertSeverity | undefined,
           status: alert.status,
           lastMessage: alert.last_message,
+          lastAlerted: alert.last_alerted,
+          lastChecked: alert.last_checked
           // TODO: Add other fields if needed
         }));
   
