@@ -5,8 +5,6 @@ import { useMemo } from "react";
 import { api } from "~/utils/api";
 import { AlertSeverity } from "~/utils/types";
 
-export const widgetName = "ActiveAlerts";
-
 export default function ActiveAlerts() {
   const alerts = api.alert.get.useQuery();
 
