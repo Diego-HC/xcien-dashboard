@@ -5,6 +5,7 @@ import AvailabilityStatus from "~/components/widgets/AvailabilityStatus";
 import Histogram from "~/components/widgets/Histogram";
 import ProcessorsStatus from "~/components/widgets/ProcessorsStatus";
 import PDFReport from "~/components/widgets/PDFReport";
+import MemoryPoolStatus from "~/components/widgets/MemoryPoolStatus";
 import { useState } from "react";
 
 export default function Home() {
@@ -21,10 +22,10 @@ export default function Home() {
       <div className="grid grow grid-cols-4 gap-4">
         {/* Row 1 */}
         <div className="col-span-2">
-          <Histogram />
+          <Histogram dateRange={dateRange} />
         </div>
         <div>
-          <DeviceStatus />
+          <DeviceStatus dateRange={dateRange} />
         </div>
         <div>
           <ActiveAlerts dateRange={dateRange} />
@@ -32,10 +33,13 @@ export default function Home() {
 
         {/* Row 2 */}
         <div className="row-span-2">
-          <AvailabilityStatus />
+          <AvailabilityStatus dateRange={dateRange} />
         </div>
         <div className="row-span-2">
-          <ProcessorsStatus />
+          <ProcessorsStatus dateRange={dateRange} />
+        </div>
+        <div className="row-span-2">
+          <MemoryPoolStatus dateRange={dateRange} />
         </div>
 
         {/* Row 3 */}

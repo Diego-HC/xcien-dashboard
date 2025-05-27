@@ -4,8 +4,17 @@ import { gtSeverityColor } from "~/utils/utils";
 import { useMemo } from "react";
 import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
 
-export default function AvailabilityStatus() {
-  const devices = api.device.get.useQuery();
+interface AvailabilityStatusProps {
+  dateRange: [string, string];
+}
+
+export default function AvailabilityStatus({
+  dateRange,
+}: AvailabilityStatusProps) {
+  const devices = api.device.get.useQuery({
+    startDate: dateRange[0],
+    endDate: dateRange[1],
+  });
   const devicesByState = devices.data?.deviceStatusByState;
 
   const availability = useMemo(() => {

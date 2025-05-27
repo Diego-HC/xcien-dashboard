@@ -15,8 +15,8 @@ export const processorRouter = createTRPCRouter({
     });
 
     if (!processors.ok) {
-      console.error("Error fetchin processors:", processors.statusText);
-      throw new Error("Failed to fetch alerts");
+      console.error("Error fetching processors:", processors.statusText);
+      throw new Error("Failed to fetch processors");
     }
 
     const contentType = processors.headers.get("content-type");
@@ -57,6 +57,7 @@ export const processorRouter = createTRPCRouter({
         processorId: processor.processor_id,
         deviceId: processor.device_id,
         processorUsage: processor.processor_usage,
+        processorPolled: processor.processor_polled
       }));
 
       return {
