@@ -76,7 +76,7 @@ export default function Login() {
               href="#"
               className="text-sm text-gray-500 hover:text-[#2A4365] focus:text-[#2A4365] focus:outline-none"
             >
-              ¿Olvidaste tu contraseña?
+              Crear cuenta
             </a>
           </div>
 
