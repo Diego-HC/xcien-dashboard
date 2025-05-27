@@ -1,5 +1,16 @@
+import { useRouter } from "next/router";
 
 const Login = () => {
+  const router = useRouter();
+
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    // Aquí puedes validar credenciales si las tuvieras
+    // Luego rediriges al dashboard
+    await router.push("/");
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="w-full max-w-md bg-white p-8 rounded-lg shadow-md">
@@ -13,7 +24,7 @@ const Login = () => {
         </div>
 
         {/* Formulario */}
-        <form>
+        <form onSubmit={handleLogin}>
           <div className="mb-4">
             <label className="block text-gray-700 font-bold mb-2">
               Correo electrónico
@@ -37,7 +48,7 @@ const Login = () => {
           </div>
 
           <div className="mb-6 text-right">
-            <a href="#" className="text-sm text-gray-500 hover:text-[#2A4365] focus:text-[#2A4365] focus:outline-none">
+            <a href="#" className="text-sm text-gray-500 hover:text-[#2A4365]">
               ¿Olvidaste tu contraseña?
             </a>
           </div>
