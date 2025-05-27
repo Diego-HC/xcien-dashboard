@@ -1,11 +1,19 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
-export default function DatePicker() {
-  const [dateRange, setDateRange] = useState<[string, string]>(["", ""]);
+interface DatePickerProps {
+  dateRange: [string, string];
+  setDateRange: (range: [string, string]) => void;
+}
 
+export default function DatePicker({
+  dateRange,
+  setDateRange,
+}: DatePickerProps) {
   useEffect(() => {
-    console.log("Start Date:", dateRange[0]);
-    console.log("End Date:", dateRange[1]);
+    if (dateRange) {
+      console.log("Start Date:", dateRange[0]);
+      console.log("End Date:", dateRange[1]);
+    }
   }, [dateRange]);
 
   return (
@@ -14,8 +22,8 @@ export default function DatePicker() {
         <label className="text-sm font-bold text-gray-600">Desde:</label>
         <input
           type="date"
-          value={dateRange[0]}
-          onChange={(e) => setDateRange([e.target.value, dateRange[1]])}
+          value={dateRange?.[0] ?? ""}
+          onChange={(e) => setDateRange([e.target.value, dateRange?.[1] ?? ""])}
           className="border-none text-sm text-gray-800 outline-none"
         />
       </div>
@@ -24,8 +32,8 @@ export default function DatePicker() {
         <label className="text-sm font-bold text-gray-600">Hasta:</label>
         <input
           type="date"
-          value={dateRange[1]}
-          onChange={(e) => setDateRange([dateRange[0], e.target.value])}
+          value={dateRange?.[1] ?? ""}
+          onChange={(e) => setDateRange([dateRange?.[0] ?? "", e.target.value])}
           className="border-none text-sm text-gray-800 outline-none"
         />
       </div>

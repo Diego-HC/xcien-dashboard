@@ -1,28 +1,32 @@
 import DatePicker from "~/components/DatePicker";
-import TimePicker from "~/components/TimePicker";
 import ActiveAlerts from "~/components/widgets/ActiveAlerts";
 import DeviceStatus from "~/components/widgets/DeviceStatus";
 import AvailabilityStatus from "~/components/widgets/AvailabilityStatus";
+import Histogram from "~/components/widgets/Histogram";
 import ProcessorsStatus from "~/components/widgets/ProcessorsStatus";
+import { useState } from "react";
 
 export default function Home() {
+  const [dateRange, setDateRange] = useState<[string, string]>(["", ""]);
+
   return (
     <div className="flex h-screen w-full flex-col gap-8 p-12">
       <h1 className="text-5xl font-extrabold">Network Monitoring</h1>
       <div className="flex flex-row gap-4">
-        <DatePicker />
-        <TimePicker />
+        <DatePicker dateRange={dateRange} setDateRange={setDateRange} />
       </div>
 
       {/* Widgets */}
       <div className="grid grow grid-cols-4 gap-4">
         {/* Row 1 */}
-        <div className="col-span-2 border"></div>
+        <div className="col-span-2">
+          <Histogram />
+        </div>
         <div>
           <DeviceStatus />
         </div>
         <div>
-          <ActiveAlerts />
+          <ActiveAlerts dateRange={dateRange} />
         </div>
 
         {/* Row 2 */}
@@ -32,7 +36,6 @@ export default function Home() {
         <div className="row-span-2">
           <ProcessorsStatus />
         </div>
-
 
         {/* Row 3 */}
         <div className="col-span-2 border"></div>

@@ -176,6 +176,7 @@ export const deviceRouter = createTRPCRouter({
           type: device.type,
           location: device.location,
           locationCity: device.location_city,
+          uptime: device.uptime
           // TODO: Add other fields if needed
         }));
 
@@ -189,13 +190,11 @@ export const deviceRouter = createTRPCRouter({
 
         parsedDevices.forEach((device) => {
           if (!device.location) {
-            console.warn(`Device with ID ${device.deviceId} has no location`);
             return;
           }
 
           const state = getStateFromLocation(device.location);
           if (state == null) {
-            console.warn(`State not found for device with location: ${device.location}`);
             return;
           }
 
