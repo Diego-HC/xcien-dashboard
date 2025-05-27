@@ -20,10 +20,10 @@ export default function Home() {
       <div className="grid grow grid-cols-4 gap-4">
         {/* Row 1 */}
         <div className="col-span-2">
-          <Histogram />
+          <Histogram dateRange={dateRange} />
         </div>
         <div>
-          <DeviceStatus />
+          <DeviceStatus dateRange={dateRange} />
         </div>
         <div>
           <ActiveAlerts dateRange={dateRange} />
@@ -31,7 +31,7 @@ export default function Home() {
 
         {/* Row 2 */}
         <div className="row-span-2">
-          <AvailabilityStatus />
+          <AvailabilityStatus dateRange={dateRange} />
         </div>
         <div className="row-span-2">
           <ProcessorsStatus />

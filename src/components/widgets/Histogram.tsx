@@ -10,10 +10,17 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-export default function Histogram() {
+interface HistogramProps {
+  dateRange: [string, string];
+}
+
+export default function Histogram({ dateRange }: HistogramProps) {
   // Retrieve devices from the API router.
   // Each device has an "uptime" property representing uptime in seconds.
-  const devices = api.device.get.useQuery();
+  const devices = api.device.get.useQuery({
+    startDate: dateRange[0],
+    endDate: dateRange[1],
+  });
 
   const histogramData: { bin: string; count: number }[] = useMemo(() => {
     if (!devices.data) {
