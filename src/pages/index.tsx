@@ -4,6 +4,7 @@ import DeviceStatus from "~/components/widgets/DeviceStatus";
 import AvailabilityStatus from "~/components/widgets/AvailabilityStatus";
 import Histogram from "~/components/widgets/Histogram";
 import ProcessorsStatus from "~/components/widgets/ProcessorsStatus";
+import PDFReport from "~/components/widgets/PDFReport";
 import { useState } from "react";
 
 export default function Home() {
@@ -38,8 +39,10 @@ export default function Home() {
         </div>
 
         {/* Row 3 */}
-        <div className="col-span-2 border"></div>
-        <div className="border"></div>
+        <div className="row-span-2 border"></div>
+        <div className="row-span-2">
+          <PDFReport />
+        </div>
       </div>
     </div>
   );
