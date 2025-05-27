@@ -39,24 +39,26 @@ export default function Histogram() {
   return (
     <div className="h-full rounded-lg border border-gray-200 bg-white p-4 shadow-sm">
       <h2 className="mb-4 text-xl font-semibold">Distribución del Uptime</h2>
-      <ResponsiveContainer width="100%" height={250}>
-        <BarChart data={histogramData}>
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis
-            dataKey="bin"
-            label={{
-              value: "Rango de Uptime",
-              position: "insideBottom",
-              offset: -5,
-            }}
-          />
-          <YAxis
-            label={{ value: "Cantidad", angle: -90, position: "insideLeft" }}
-          />
-          <Tooltip />
-          <Bar dataKey="count" fill="#2A4365" />
-        </BarChart>
-      </ResponsiveContainer>
+      <div className="flex h-full items-center justify-center">
+        <ResponsiveContainer width="100%" height={250}>
+          <BarChart data={histogramData}>
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis
+              dataKey="bin"
+              label={{
+                value: "Rango de Uptime",
+                position: "insideBottom",
+                offset: -5,
+              }}
+            />
+            <YAxis
+              label={{ value: "Cantidad", angle: -90, position: "insideLeft" }}
+            />
+            <Tooltip />
+            <Bar dataKey="count" fill="#2A4365" />
+          </BarChart>
+        </ResponsiveContainer>
+      </div>
     </div>
   );
 }
