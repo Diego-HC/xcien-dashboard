@@ -178,20 +178,10 @@ export const deviceRouter = createTRPCRouter({
           .filter((device) => {
             const polledDate = new Date(device.last_polled);
             if (startDate && polledDate < startDate) {
-              console.warn(
-                `Device ${device.hostname} polled date ${polledDate.toString()} is before start date ${startDate.toString()}`,
-              );
               return false;
             }
             if (endDate && polledDate > endDate) {
-              console.warn(
-                `Device ${device.hostname} polled date ${polledDate.toString()} is after end date ${endDate.toString()}`,
-              );
               return false;
-            } else {
-              console.log(
-                `Device ${device.hostname} polled date ${polledDate.toString()} is within the range. ${device.last_polled}`,
-              );
             }
             return true;
           })
