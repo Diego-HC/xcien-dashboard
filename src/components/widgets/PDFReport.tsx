@@ -8,6 +8,7 @@ import Histogram from "./Histogram";
 import ProcessorsStatus from "./ProcessorsStatus";
 import { LuDownload } from "react-icons/lu";
 import DatePicker from "../DatePicker";
+
 interface PDFReportProps {
   dateRange: [string, string];
 }
