@@ -17,7 +17,9 @@ export default function Home() {
       {/* Widgets */}
       <div className="grid grow grid-cols-4 gap-4">
         {/* Row 1 */}
-        <div className="col-span-2"><Histogram/></div>
+        <div className="col-span-2">
+          <Histogram />
+        </div>
         <div>
           <DeviceStatus />
         </div>
