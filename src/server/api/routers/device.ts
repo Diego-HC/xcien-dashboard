@@ -1,4 +1,3 @@
-import { uptime } from "process";
 import { env } from "~/env";
 
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
