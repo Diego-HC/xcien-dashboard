@@ -41,9 +41,6 @@ export default function Home() {
         <div className="row-span-2">
           <MemoryPoolStatus dateRange={dateRange} />
         </div>
-
-        {/* Row 3 */}
-        <div className="row-span-2 border"></div>
         <div className="row-span-2">
           <PDFReport dateRange={dateRange} />
         </div>
