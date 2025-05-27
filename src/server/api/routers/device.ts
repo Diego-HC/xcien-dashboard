@@ -208,8 +208,6 @@ export const deviceRouter = createTRPCRouter({
           }
         });
 
-        console.log("Device status by state:", deviceStatusByState);
-
         return {
           status: data.status,
           count: parseInt(data.count, 10),

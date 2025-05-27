@@ -4,6 +4,7 @@ import ActiveAlerts from "~/components/widgets/ActiveAlerts";
 import DeviceStatus from "~/components/widgets/DeviceStatus";
 import AvailabilityStatus from "~/components/widgets/AvailabilityStatus";
 import Histogram from "~/components/widgets/Histogram";
+import ProcessorsStatus from "~/components/widgets/ProcessorsStatus";
 
 export default function Home() {
   return (
@@ -31,8 +32,10 @@ export default function Home() {
         <div className="row-span-2">
           <AvailabilityStatus />
         </div>
-        <div className="col-span-2 border"></div>
-        <div className="border"></div>
+        <div className="row-span-2">
+          <ProcessorsStatus />
+        </div>
+
 
         {/* Row 3 */}
         <div className="col-span-2 border"></div>

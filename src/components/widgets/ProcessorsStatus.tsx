@@ -4,30 +4,36 @@ import { gtSeverityColor } from "~/utils/utils";
 import { useMemo } from "react";
 import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
 
-export default function AvailabilityStatus() {
-  const devices = api.device.get.useQuery();
-  const devicesByState = devices.data?.deviceStatusByState;
+export default function ProcessorsStatus() {
+  const processors = api.processor.get.useQuery();
 
-  const availability = useMemo(() => {
-    if (!devicesByState) return 0;
-    let totalUp = 0;
+  const usage = useMemo(() => {
+    const procs = processors.data?.processors;
+    if (!procs) return 0;
+
     let total = 0;
-    Object.values(devicesByState).forEach(({ "1": up = 0, "0": down = 0 }) => {
-      totalUp += up;
-      total += up + down;
+    let count = 0;
+
+    Object.values(procs).forEach((proc) => {
+      const u = Number(proc.processorUsage);
+      if (!isNaN(u)) {
+        total += u;
+        count += 1;
+      }
     });
-    return total ? (totalUp / total) * 100 : 0;
-  }, [devicesByState]);
+
+    return count > 0 ? total / count : 0;
+  }, [processors.data]);
 
   const chartData = [
-    { name: "up", value: availability },
-    { name: "down", value: 100 - availability },
+    { name: "use", value: usage },
+    { name: "notUsing", value: 100 - usage },
   ];
 
   return (
     <div className="flex h-full w-full flex-col gap-4 rounded-lg border border-gray-200 bg-white p-4 shadow-sm">
       <div className="flex items-center justify-between">
-        <h2 className="text-xl font-semibold">% de disponibilidad</h2>
+        <h2 className="text-xl font-semibold">% de uso de procesadores</h2>
         <SeeMore />
       </div>
 
@@ -43,13 +49,13 @@ export default function AvailabilityStatus() {
               outerRadius={70}
               paddingAngle={2}
             >
-              <Cell key="up" fill={gtSeverityColor(availability)} />
-              <Cell key="down" fill="#E5E7EB" />
+              <Cell key="use" fill={gtSeverityColor(usage)} />
+              <Cell key="notUsing" fill="#E5E7EB" />
             </Pie>
           </PieChart>
         </ResponsiveContainer>
         <div className="absolute text-2xl font-bold">
-          {availability.toFixed(0)} %
+            {usage.toFixed(0)} %
         </div>
       </div>
     </div>
