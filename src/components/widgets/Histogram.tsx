@@ -37,9 +37,9 @@ export default function Histogram() {
   }, [devices.data]);
 
   return (
-    <div className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm">
+    <div className="h-full rounded-lg border border-gray-200 bg-white p-4 shadow-sm">
       <h2 className="mb-4 text-xl font-semibold">Distribución del Uptime</h2>
-      <ResponsiveContainer width="100%" height={300}>
+      <ResponsiveContainer width="100%" height={250}>
         <BarChart data={histogramData}>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis
