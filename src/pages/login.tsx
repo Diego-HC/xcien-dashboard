@@ -1,4 +1,14 @@
+import { useRouter } from "next/router";
+
 export default function Login() {
+  const router = useRouter();
+
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    // Aquí puedes validar si es necesario
+    await router.push("/");
+  };
+
   return (
     <div className="flex min-h-screen w-full items-center justify-center bg-gray-100">
       <div className="max-w-md rounded-lg bg-white p-8 shadow-md">
