@@ -1,3 +1,4 @@
+import { uptime } from "process";
 import { env } from "~/env";
 
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
@@ -176,6 +177,7 @@ export const deviceRouter = createTRPCRouter({
           type: device.type,
           location: device.location,
           locationCity: device.location_city,
+          uptime: device.uptime
           // TODO: Add other fields if needed
         }));
 
