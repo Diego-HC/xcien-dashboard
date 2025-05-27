@@ -8,7 +8,11 @@ import Histogram from "./Histogram";
 import ProcessorsStatus from "./ProcessorsStatus";
 import { LuDownload } from "react-icons/lu";
 
-export default function PDFReport() {
+interface PDFReportProps {
+  dateRange: [string, string];
+}
+
+export default function PDFReport({ dateRange }: PDFReportProps) {
   const reportRef = useRef<HTMLDivElement>(null);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -106,19 +110,19 @@ export default function PDFReport() {
           }}
         >
           <section className="pdf-widget">
-            <ActiveAlerts dateRange={["2024-01-01", "2024-12-31"]} />
+            <ActiveAlerts dateRange={dateRange} />
           </section>
           <section className="pdf-widget">
-            <AvailabilityStatus />
+            <AvailabilityStatus dateRange={dateRange} />
           </section>
           <section className="pdf-widget">
-            <DeviceStatus />
+            <DeviceStatus dateRange={dateRange} />
           </section>
           <section className="pdf-widget">
-            <Histogram />
+            <Histogram dateRange={dateRange} />
           </section>
           <section className="pdf-widget">
-            <ProcessorsStatus />
+            <ProcessorsStatus dateRange={dateRange} />
           </section>
           {/* Optionally add an empty section or content to fill last grid cell */}
           <section className="pdf-widget"></section>

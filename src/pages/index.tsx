@@ -45,7 +45,7 @@ export default function Home() {
         {/* Row 3 */}
         <div className="row-span-2 border"></div>
         <div className="row-span-2">
-          <PDFReport />
+          <PDFReport dateRange={dateRange} />
         </div>
       </div>
     </div>
