@@ -5,9 +5,11 @@ import { useMemo } from "react";
 import { api } from "~/utils/api";
 import { AlertSeverity } from "~/utils/types";
 
-export const widgetName = "ActiveAlerts";
+interface ActiveAlertsProps {
+  dateRange: [string, string];
+}
 
-export default function ActiveAlerts() {
+export default function ActiveAlerts({ dateRange }: ActiveAlertsProps) {
   const alerts = api.alert.get.useQuery();
 
   const { criticalAlerts, warningAlerts, otherAlerts } = useMemo(() => {
@@ -17,6 +19,16 @@ export default function ActiveAlerts() {
 
     return alerts.data.alerts.reduce(
       (acc, alert) => {
+        if (dateRange) {
+          const alertDate = new Date(Number(alert.lastAlerted) * 1000);
+          const startDate = new Date(dateRange[0]);
+          const endDate = new Date(dateRange[1]);
+
+          if (alertDate < startDate || alertDate > endDate) {
+            return acc; // Skip alerts outside the date range
+          }
+        }
+
         if (alert.severity === AlertSeverity.CRITICAL) {
           acc.criticalAlerts += 1;
         } else if (alert.severity === AlertSeverity.WARNING) {
@@ -28,7 +40,7 @@ export default function ActiveAlerts() {
       },
       { criticalAlerts: 0, warningAlerts: 0, otherAlerts: 0 },
     );
-  }, [alerts.data?.alerts]);
+  }, [alerts.data?.alerts, dateRange]);
 
   return (
     <div className="flex h-full w-full min-w-0 flex-col justify-between rounded-lg border border-gray-200 bg-white p-4 shadow-sm">
