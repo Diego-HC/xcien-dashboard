@@ -4,7 +4,7 @@ import DeviceStatus from "~/components/widgets/DeviceStatus";
 import AvailabilityStatus from "~/components/widgets/AvailabilityStatus";
 import Histogram from "~/components/widgets/Histogram";
 import ProcessorsStatus from "~/components/widgets/ProcessorsStatus";
-import PDFReport from "~/components/widgets/PDFReport";
+import ReportGenerator from "~/components/ReportGenerator";
 import MemoryPoolStatus from "~/components/widgets/MemoryPoolStatus";
 import LastRebooted from "~/components/widgets/LastRebooted";
 import { useState } from "react";
@@ -17,6 +17,7 @@ export default function Home() {
       <h1 className="text-5xl font-extrabold">Network Monitoring</h1>
       <div className="flex flex-row gap-4">
         <DatePicker dateRange={dateRange} setDateRange={setDateRange} />
+        <ReportGenerator dateRange={dateRange}/>
       </div>
 
       {/* Widgets */}
@@ -43,17 +44,8 @@ export default function Home() {
           <MemoryPoolStatus dateRange={dateRange} />
         </div>
         <div className="row-span-2">
-<<<<<<< HEAD
           <LastRebooted dateRange={dateRange} />
         </div>
-
-        {/* Row 3 */}
-        <div className="col-span-2 border"></div>
-        <div className="border"></div>
-=======
-          <PDFReport dateRange={dateRange} />
-        </div>
->>>>>>> main
       </div>
     </div>
   );

@@ -1,4 +1,3 @@
-import { hostname } from "os";
 import { z } from "zod";
 import { env } from "~/env";
 
