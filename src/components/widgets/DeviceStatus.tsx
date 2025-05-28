@@ -30,13 +30,13 @@ export default function DeviceStatus({ dateRange }: DeviceStatusProps) {
   }, [devicesByState]);
 
   return (
-    <div className="flex h-full w-full flex-col gap-4 overflow-y-scroll rounded-lg border border-gray-200 bg-white p-4 shadow-sm">
+    <div className="flex h-full w-full flex-col rounded-lg border border-gray-200 bg-white p-4 shadow-sm">
       <div className="flex items-center justify-between">
         <h2 className="text-xl font-semibold">Estado de dispositivos</h2>
         <SeeMore />
       </div>
 
-      <div className="overflow-auto">
+      <div className="flex flex-grow items-center justify-center">
         <table className="min-w-full table-auto">
           <thead>
             <tr>

@@ -5,6 +5,8 @@ interface SeeMoreProps {
 }
 
 const SeeMore: React.FC<SeeMoreProps> = ({ onClick }) => {
+  return null;
+  
   return (
     <span
       style={{
