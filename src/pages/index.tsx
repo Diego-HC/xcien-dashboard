@@ -5,6 +5,7 @@ import AvailabilityStatus from "~/components/widgets/AvailabilityStatus";
 import Histogram from "~/components/widgets/Histogram";
 import ProcessorsStatus from "~/components/widgets/ProcessorsStatus";
 import MemoryPoolStatus from "~/components/widgets/MemoryPoolStatus";
+import LastRebooted from "~/components/widgets/LastRebooted";
 import { useState } from "react";
 
 export default function Home() {
@@ -39,6 +40,9 @@ export default function Home() {
         </div>
         <div className="row-span-2">
           <MemoryPoolStatus dateRange={dateRange} />
+        </div>
+        <div className="row-span-2">
+          <LastRebooted dateRange={dateRange} />
         </div>
 
         {/* Row 3 */}

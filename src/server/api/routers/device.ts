@@ -1,3 +1,4 @@
+import { hostname } from "os";
 import { z } from "zod";
 import { env } from "~/env";
 
@@ -201,6 +202,7 @@ export const deviceRouter = createTRPCRouter({
             location: device.location,
             locationCity: device.location_city,
             uptime: device.uptime,
+            lastRebooted: device.last_rebooted
             // TODO: Add other fields if needed
           }));
 
@@ -232,11 +234,18 @@ export const deviceRouter = createTRPCRouter({
           }
         });
 
+        const lastRebootedDevice: Record<string, string> = {}
+
+        Object.values(data?.devices).forEach((device) => {
+          lastRebootedDevice[device.hostname ] = device.last_rebooted;
+        })
+
         return {
           status: data.status,
           count: parseInt(data.count, 10),
           devices: parsedDevices,
           deviceStatusByState,
+          lastRebootedDevice
         };
       } catch (error) {
         console.error("Error parsing devices JSON:", error);
