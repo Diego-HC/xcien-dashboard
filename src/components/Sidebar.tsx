@@ -1,4 +1,4 @@
-import { LuBellRing, LuGauge } from "react-icons/lu";
+import { LuBellRing, LuFileText, LuGauge } from "react-icons/lu";
 import { useRouter } from "next/router";
 
 export default function Sidebar() {
@@ -6,7 +6,7 @@ export default function Sidebar() {
     <div className="fixed flex h-screen w-24 flex-col items-center gap-2 rounded-r-lg bg-[#2A4365] pt-4 text-xs text-white">
       <SidebarButton path="/" icon={LuGauge} label="Dashboard" />
       <SidebarButton path="/alertas" icon={LuBellRing} label="Alertas" />
-      {/* <SidebarButton path="/reportes" icon={LuFileText} label="Reportes" /> */}
+      <SidebarButton path="/reportes" icon={LuFileText} label="Reportes" />
     </div>
   );
 }
