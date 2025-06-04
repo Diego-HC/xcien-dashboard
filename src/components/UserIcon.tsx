@@ -13,7 +13,7 @@ export default function UserIcon() {
     >
       <button
         onClick={() => router.push("/login")}
-        className="rounded-full shadow-lg hover:opacity-80 transition"
+        className="rounded-full shadow-lg transition hover:opacity-80"
       >
         <img
           src="https://th.bing.com/th/id/OIP.9SPGZ-aAEq2vraXqnax8sQAAAA?rs=1&pid=ImgDetMain"
@@ -23,7 +23,7 @@ export default function UserIcon() {
       </button>
 
       {showTooltip && (
-        <div className="absolute right-0 mt-2 bg-gray-800 text-white text-sm rounded px-3 py-1 shadow-lg">
+        <div className="absolute right-0 mt-2 rounded bg-gray-800 px-3 py-1 text-sm text-white shadow-lg">
           Cerrar sesión
         </div>
       )}
