@@ -47,7 +47,6 @@ export default function ActiveAlerts({ dateRange }: ActiveAlertsProps) {
       {/* Header stays at the top */}
       <div className="flex items-center justify-between">
         <h2 className="text-xl font-semibold">Alertas Activas</h2>
-        <SeeMore />
       </div>
       {/* Alerts centered vertically */}
       <div className="flex flex-grow flex-col justify-center gap-3">

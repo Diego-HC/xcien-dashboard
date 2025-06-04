@@ -34,7 +34,6 @@ export default function LastRebooted({ dateRange }: LastRebootedProps) {
         <h2 className="text-xl font-semibold">
           Dispositivos reiniciados últimamente
         </h2>
-        <SeeMore />
       </div>
 
       <div className="overflow-auto">
