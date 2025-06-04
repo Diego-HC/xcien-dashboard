@@ -17,7 +17,7 @@ export default function Home() {
       <h1 className="text-5xl font-extrabold">Network Monitoring</h1>
       <div className="flex flex-row gap-4">
         <DatePicker dateRange={dateRange} setDateRange={setDateRange} />
-        <ReportGenerator dateRange={dateRange}/>
+        <ReportGenerator dateRange={dateRange} />
       </div>
 
       {/* Widgets */}

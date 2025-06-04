@@ -1,4 +1,5 @@
 import { PrismaAdapter } from "@auth/prisma-adapter";
+import bcrypt from "bcryptjs";
 import { type DefaultSession } from "next-auth";
 import type { NextAuthOptions } from "next-auth";
 // import DiscordProvider from "next-auth/providers/discord";
@@ -51,13 +52,8 @@ export const authConfig = {
       },
       async authorize(credentials) {
         if (typeof credentials?.email !== "string" || !credentials?.password) {
-          return { id: "123", email: credentials?.email };
-          // throw new Error("Correo electrónico y contraseña son requeridos");
+          throw new Error("Correo electrónico y contraseña son requeridos");
         }
-
-        console.log("-------------------------------------");
-        console.log("Credenciales recibidas:", credentials);
-        // console.log(db, db.user);
 
         const user = await db.user.findUnique({
           where: { email: credentials.email },
@@ -72,17 +68,16 @@ export const authConfig = {
           },
         });
 
-        // if (user?.credentials?.password) {
-        //   throw new Error("Usuario no tiene contraseña configurada");
-        // }
-
-        if (user?.credentials?.password !== credentials.password) {
-          // throw new Error("Credenciales inválidas");
-          return { id: "123", email: credentials?.email };
+        if (user?.credentials?.password == null) {
+          throw new Error("Error interno");
         }
 
-        console.log("Usuario encontrado:", user);
-        console.log("-------------------------------------");
+        const isValid = await bcrypt.compare(credentials.password, user.credentials.password);
+
+        if (!isValid) {
+          throw new Error("Credenciales inválidas");
+        }
+
         return user;
       },
     }),

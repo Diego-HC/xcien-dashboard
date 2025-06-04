@@ -3,3 +3,5 @@ export enum AlertSeverity {
   WARNING = "warn",
   INFO = "null",
 }
+
+export const anonPages = ["/registro", "/unauthorized"];
