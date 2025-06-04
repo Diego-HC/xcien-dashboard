@@ -27,13 +27,22 @@ const MyApp: AppType<PageProps> = ({ Component, pageProps: { session } }) => {
 
 function Page({ Component }: { Component: NextComponentType }) {
   const router = useRouter();
-  const { data: sessionData } = useSession();
+  const { data: sessionData, status: sessionStatus } = useSession();
 
   useEffect(() => {
-    if (!sessionData && !anonPages.includes(router.pathname)) {
-      // void router.push("/unauthorized");
+    if (
+      sessionStatus !== "loading" &&
+      !sessionData &&
+      !anonPages.includes(router.pathname)
+    ) {
+      void router.push("/unauthorized");
+      console.error(
+        "Unauthorized access attempt to a protected page.",
+        sessionData,
+        sessionStatus,
+      );
     }
-  }, [sessionData, router]);
+  }, [sessionData, router, sessionStatus]);
 
   const showSidebar = !anonPages.includes(router.pathname);
 

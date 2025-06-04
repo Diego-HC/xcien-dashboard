@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { env } from "~/env";
 
-import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
+import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc";
 
 const MEXICO_STATES_LIST = [
   "Aguascalientes",
@@ -44,7 +44,7 @@ function getStateFromLocation(location: string): string | undefined {
 }
 
 export const deviceRouter = createTRPCRouter({
-  get: publicProcedure
+  get: protectedProcedure
     .input(
       z.object({
         startDate: z.string().optional(),

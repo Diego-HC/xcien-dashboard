@@ -1,9 +1,9 @@
 import { env } from "~/env";
 
-import { createTRPCRouter, publicProcedure } from "../trpc";
+import { createTRPCRouter, protectedProcedure } from "../trpc";
 
 export const processorRouter = createTRPCRouter({
-  get: publicProcedure.query(async () => {
+  get: protectedProcedure.query(async () => {
     const processors = await fetch(env.OBSERVIUM_API_BASE_URL + "processors", {
       method: "GET",
       headers: {

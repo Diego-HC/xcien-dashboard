@@ -1,9 +1,9 @@
 import { env } from "~/env";
 
-import { createTRPCRouter, publicProcedure } from "../trpc";
+import { createTRPCRouter, protectedProcedure } from "../trpc";
 
 export const mempoolRouter = createTRPCRouter({
-  get: publicProcedure.query(async () => {
+  get: protectedProcedure.query(async () => {
     const mempools = await fetch(env.OBSERVIUM_API_BASE_URL + "mempools", {
       method: "GET",
       headers: {
