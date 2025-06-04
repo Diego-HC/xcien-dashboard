@@ -41,7 +41,7 @@ function Page({ Component }: { Component: NextComponentType }) {
     <div>
       <div className={`${geist.className} flex flex-row`}>
         {showSidebar && <Sidebar />}
-        <div className={`relative flex-1 ${!showSidebar ? "ml-24" : ""}`}>
+        <div className={`relative flex-1 ${showSidebar ? "ml-24" : ""}`}>
           {showSidebar && <UserIcon />}
           <Component />
         </div>
