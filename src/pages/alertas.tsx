@@ -9,6 +9,7 @@ export default function Alertas() {
   const devices = api.device.get.useQuery({});
   const [fromDate, setFromDate] = useState("2024-01-04");
   const [toDate, setToDate] = useState(getTodayString());
+  const [statusFilter, setStatusFilter] = useState("All");
 
   const handleFromChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newFromDate = e.target.value;
@@ -23,7 +24,7 @@ export default function Alertas() {
     setToDate(e.target.value);
   };
 
-  // Filtra las alertas para que estén en el rango [fromDate, toDate] utilizando unix timestamp en UTC para mayor precisión
+  // Filtra las alertas en base al rango de fecha y al estado
   const filteredAlerts =
     alerts.data?.alerts.filter((alert) => {
       const alertTimestamp = Number(alert.lastAlerted);
@@ -37,7 +38,11 @@ export default function Alertas() {
       const toTimestamp = Math.floor(
         new Date(toDate + "T23:59:59Z").getTime() / 1000,
       );
-      return alertTimestamp >= fromTimestamp && alertTimestamp <= toTimestamp;
+      const dateMatch =
+        alertTimestamp >= fromTimestamp && alertTimestamp <= toTimestamp;
+      const statusMatch =
+        statusFilter === "All" || alert.status === statusFilter;
+      return dateMatch && statusMatch;
     }) ?? [];
 
   const formatDate = (timestamp: string) => {
@@ -77,6 +82,19 @@ export default function Alertas() {
             onChange={handleToChange}
             className="ml-2 rounded border px-2 py-1"
           />
+        </div>
+        <div>
+          <label className="font-medium">Status:</label>
+          <select
+            value={statusFilter}
+            onChange={(e) => setStatusFilter(e.target.value)}
+            className="ml-2 rounded border px-2 py-1"
+          >
+            <option value="All">All</option>
+            <option value="OK">OK</option>
+            <option value="FAILED">FAILED</option>
+            <option value="SUPPRESSED">SUPPRESSED</option>
+          </select>
         </div>
       </div>
 
