@@ -8,7 +8,7 @@ export default function Reportes() {
 
   return (
     <div className="flex h-screen w-full flex-col gap-8 p-12">
-      <h1>Reportes</h1>
+      <h1 className="text-5xl font-extrabold">Reportes</h1>
 
       <div className="grid grid-cols-1 gap-4">
         {reports?.map((report) => (

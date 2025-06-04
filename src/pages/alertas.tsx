@@ -59,7 +59,7 @@ export default function Alertas() {
 
   return (
     <div className="p-4">
-      <h1 className="text-5xl font-extrabold">Alertas</h1>
+      <h1 className="mb-4 text-3xl font-bold">Alertas</h1>
 
       <div className="mb-4 flex items-center gap-4">
         <div>
