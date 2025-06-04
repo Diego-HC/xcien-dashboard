@@ -27,7 +27,7 @@ export default function ProcessorsStatus({ dateRange }: ProcessorsStatusProps) {
           return;
         }
       }
-      
+
       const u = Number(proc.processorUsage);
       if (!isNaN(u)) {
         total += u;
@@ -67,9 +67,7 @@ export default function ProcessorsStatus({ dateRange }: ProcessorsStatusProps) {
             </Pie>
           </PieChart>
         </ResponsiveContainer>
-        <div className="absolute text-2xl font-bold">
-            {usage.toFixed(0)} %
-        </div>
+        <div className="absolute text-2xl font-bold">{usage.toFixed(0)} %</div>
       </div>
     </div>
   );

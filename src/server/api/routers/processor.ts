@@ -57,7 +57,7 @@ export const processorRouter = createTRPCRouter({
         processorId: processor.processor_id,
         deviceId: processor.device_id,
         processorUsage: processor.processor_usage,
-        processorPolled: processor.processor_polled
+        processorPolled: processor.processor_polled,
       }));
 
       return {
