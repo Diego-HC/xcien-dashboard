@@ -1,33 +1,27 @@
-import React from "react";
+import { type ReactNode, useState } from "react";
+import Modal from "../Modal";
 
 interface SeeMoreProps {
-  onClick?: () => void;
+  // onClick?: () => void;
+  children: ReactNode;
 }
 
-const SeeMore: React.FC<SeeMoreProps> = ({ onClick }) => {
-  return null;
-  
-  return (
-    <span
-      style={{
-        color: "#1976d2",
-        cursor: "pointer",
-        fontWeight: 500,
-        userSelect: "none",
-      }}
-      onClick={onClick}
-      tabIndex={0}
-      role="button"
-      aria-label="Ver más"
-      onKeyDown={(e) => {
-        if (e.key === "Enter" || e.key === " ") {
-          onClick?.();
-        }
-      }}
-    >
-      Ver Más &gt;
-    </span>
-  );
-};
+export default function SeeMore({
+  children,
+} : SeeMoreProps) {
+  const [isOpen, setIsOpen] = useState(false);
 
-export default SeeMore;
+  return(
+    <>
+      <button
+        onClick={() => setIsOpen(true)}
+        className="rounded bg-blue-600 px-3 py-1 text-sm font-medium text-white hover:bg-blue-700"
+      >
+        Ver más 
+      </button>
+      <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
+        {children}
+      </Modal>
+    </>
+  );
+}
