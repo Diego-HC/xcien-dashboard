@@ -26,7 +26,7 @@ export default function UserIcon() {
         <div className="absolute right-0 mt-2 w-36 rounded-lg bg-white p-2 text-gray-800 shadow-lg">
           {sessionData ? (
             <button
-              onClick={() => signOut({ callbackUrl: "/test" })}
+              onClick={() => signOut({ callbackUrl: "/unauthorized" })}
               className="w-full cursor-pointer rounded-md p-2 hover:bg-slate-100"
             >
               Cerrar sesión

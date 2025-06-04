@@ -1,10 +1,10 @@
 import { env } from "~/env";
 
-import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
+import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc";
 import type { AlertSeverity } from "~/utils/types";
 
 export const alertRouter = createTRPCRouter({
-  get: publicProcedure.query(async () => {
+  get: protectedProcedure.query(async () => {
     const alerts = await fetch(env.OBSERVIUM_API_BASE_URL + "alerts", {
       method: "GET",
       headers: {
