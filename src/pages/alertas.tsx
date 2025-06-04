@@ -106,7 +106,6 @@ export default function Alertas() {
             <th className="p-2">Estatus</th>
             <th className="p-2">Fecha de Alerta</th>
             <th className="p-2">Última actualización</th>
-            <th className="p-2">Acción</th>
           </tr>
         </thead>
         <tbody>
@@ -122,9 +121,6 @@ export default function Alertas() {
                   <td className="p-2">{alert.status}</td>
                   <td className="p-2">{formatDate(alert.lastAlerted)}</td>
                   <td className="p-2">{formatDate(alert.lastChecked)}</td>
-                  <td className="cursor-pointer p-2 text-blue-500 hover:underline">
-                    Ver más &gt;
-                  </td>
                 </tr>
               );
             })
