@@ -66,3 +66,10 @@ model Credential {
 
     user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
+
+model Report {
+    id        String   @id @default(cuid())
+    createdAt DateTime @default(now())
+
+    data Bytes
+}
