@@ -1,7 +1,17 @@
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import Head from "next/head";
+import { useRouter } from "next/router";
 
 export default function Unauthorized() {
+  const { data: session } = useSession();
+  const router = useRouter();
+
+  if (session && session.user) {
+    // If the user is already logged in, redirect to the home page
+    void router.push("/");
+    return null; // Prevent rendering the unauthorized page
+  }
+
   return (
     <>
       <Head>
