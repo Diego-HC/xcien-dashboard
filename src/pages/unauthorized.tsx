@@ -53,6 +53,13 @@ export default function Unauthorized() {
             >
               Iniciar sesión
             </button>
+
+            <button
+              onClick={() => router.push("/registro")}
+              className="block w-full cursor-pointer rounded-md bg-green-600 px-4 py-2 text-center font-medium text-white transition-colors hover:bg-green-700"
+            >
+              Registrarse
+            </button>
           </div>
         </div>
       </div>
