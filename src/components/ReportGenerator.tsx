@@ -9,12 +9,15 @@ import ProcessorsStatus from "./widgets/ProcessorsStatus";
 import DatePicker from "./DatePicker";
 import LastRebooted from "./widgets/LastRebooted";
 import { LuDownload } from "react-icons/lu";
+import { api } from "~/utils/api";
 
 interface ReportGeneratorProps {
   dateRange: [string, string];
 }
 
 export default function ReportGenerator({ dateRange }: ReportGeneratorProps) {
+  const { mutate: createReport } = api.report.createReport.useMutation();
+
   const reportRef = useRef<HTMLDivElement>(null);
 
   const handleGeneratePDF = async () => {
@@ -25,8 +28,10 @@ export default function ReportGenerator({ dateRange }: ReportGeneratorProps) {
         options: { scale: number },
       ) => Promise<HTMLCanvasElement>;
 
-      const canvas = await safeHtml2CanvasPro(reportRef.current, { scale: 2 });
-      const imgData = canvas.toDataURL("image/png");
+      const canvas = await safeHtml2CanvasPro(reportRef.current, {
+        scale: 1.5,
+      });
+      const imgData = canvas.toDataURL("image/jpeg", 0.8);
       const pdf = new jsPDF("p", "mm", "a4");
       const pdfWidth = pdf.internal.pageSize.getWidth();
       const pdfHeight = pdf.internal.pageSize.getHeight();
@@ -39,8 +44,10 @@ export default function ReportGenerator({ dateRange }: ReportGeneratorProps) {
       const marginX = (pdfWidth - imgWidth) / 2;
       const marginY = (pdfHeight - imgHeight) / 2;
 
-      pdf.addImage(imgData, "PNG", marginX, marginY, imgWidth, imgHeight);
+      pdf.addImage(imgData, "JPEG", marginX, marginY, imgWidth, imgHeight);
       pdf.save("Network-Monitoring-Report.pdf");
+      const reportData = pdf.output("arraybuffer");
+      createReport({ content: new Uint8Array(reportData) });
     } catch (error) {
       console.error("Error generating PDF:", error);
     }

@@ -5,6 +5,7 @@ import { deviceRouter } from "./routers/device";
 import { authRouter } from "./routers/auth";
 import { processorRouter } from "./routers/processor";
 import { mempoolRouter } from "./routers/mempool";
+import { reportRouter } from "./routers/report";
 
 /**
  * This is the primary router for your server.
@@ -18,6 +19,7 @@ export const appRouter = createTRPCRouter({
   auth: authRouter,
   processor: processorRouter,
   mempool: mempoolRouter,
+  report: reportRouter,
 });
 
 // export type definition of API
