@@ -1,33 +1,48 @@
-# Network Monitoring Application - Technical Documentation
+# XCien App - Technical Documentation
 
-## Overview
+## Table of Contents
+1. [Project Overview](#project-overview)
+2. [Architecture](#architecture)
+3. [Technology Stack](#technology-stack)
+4. [Database Schema](#database-schema)
+5. [API Architecture](#api-architecture)
+6. [Authentication System](#authentication-system)
+8. [Component Structure](#component-structure)
+9. [Pages and Routes](#pages-and-routes)
+10. [Development Setup](#development-setup)
+11. [Deployment](#deployment)
+12. [Security Considerations](#security-considerations)
+13. [Future Work](#future-work)
 
-The **xcien-app** is a comprehensive network monitoring application built with modern web technologies. It provides real-time monitoring and visualization of network devices, system resources, and alerts across multiple Mexican states. The application features a dashboard with interactive widgets, alert management, and PDF report generation capabilities.
+## Project Overview
 
-## Technology Stack
+XCien App is a comprehensive network monitoring and management application designed to provide real-time insights into network infrastructure. The application monitors devices, processors, memory pools, and generates detailed reports for network administrators.
 
-### Frontend
-- **Framework**: Next.js 15.2.3 with React 19.0.0
-- **Language**: TypeScript
-- **Styling**: Tailwind CSS with PostCSS
-- **Icons**: Heroicons, React Icons, Lucide React
-- **Charts**: Recharts for data visualization
-- **PDF Generation**: jsPDF + html2canvas-pro
-
-### Backend
-- **API Layer**: tRPC 11.0.0 for type-safe APIs
-- **Database**: PostgreSQL with Prisma ORM
-- **Authentication**: NextAuth.js 4.24.11
-- **Data Validation**: Zod 3.24.2
-- **Encryption**: bcryptjs for password hashing
-
-### Development Tools
-- **Build Tool**: Next.js with Turbopack
-- **Linting**: ESLint with custom configuration
-- **Code Formatting**: Prettier
-- **Type Checking**: TypeScript compiler
+### Key Features
+- Device monitoring and status tracking
+- Processor performance monitoring
+- Memory pool utilization tracking
+- Alert management system
+- User authentication and authorization
+- Report generation and historical data analysis
+- Interactive dashboard with widgets
+- Device availability status monitoring
 
 ## Architecture
+
+The application follows a modern full-stack architecture with clear separation of concerns:
+
+```
+Frontend (Next.js + React)
+    ↓
+tRPC API Layer
+    ↓
+Business Logic (Routers)
+    ↓
+Database Layer (Prisma ORM)
+    ↓
+PostgreSQL Database
+```
 
 ### Project Structure
 
@@ -73,240 +88,349 @@ xcien-app/
     └── bills.json          # Billing information
 ```
 
-### Data Flow Architecture
+### Key Architectural Patterns
+- **Server-Side Rendering (SSR)**: Next.js provides SSR capabilities for better performance
+- **Type-Safe API**: tRPC ensures end-to-end type safety between frontend and backend
+- **Database First**: Prisma ORM with code generation from database schema
+- **Component-Based UI**: React components with reusable widgets
+- **Middleware Pattern**: Authentication and request processing middleware
 
-1. **Data Sources**: JSON files containing network monitoring data
-2. **API Layer**: tRPC routers fetch and process data
-3. **Frontend**: React components consume data via tRPC hooks
-4. **State Management**: React useState and useMemo for local state
-5. **UI Updates**: Real-time dashboard updates with date range filtering
+## Technology Stack
 
-## Core Features
+### Frontend
+- **Next.js 15.2.3**: React framework with SSR/SSG capabilities
+- **React 19**: UI library with latest features
+- **TypeScript**: Type-safe JavaScript development
+- **Tailwind CSS**: Utility-first CSS framework
+- **Charts**: Recharts for data visualization
+- **PDF Generation**: jsPDF + html2canvas-pro
+  
+### Backend
+- **tRPC 11.0.0**: Type-safe API framework
+- **NextAuth.js**: Authentication library
+- **Prisma ORM**: Database toolkit and query builder
+- **Zod**: Schema validation library
+- **bcrypt**: Password hashing library
 
-### 1. Dashboard (Main Page)
-- **File**: `src/pages/index.tsx`
-- **Purpose**: Central monitoring dashboard with multiple widgets
-- **Key Components**:
-  - Date range picker for filtering data
-  - Grid layout with responsive widgets
-  - Real-time data visualization
+### Database
+- **PostgreSQL**: Primary database
+- **Prisma Client**: Type-safe database client
 
-### 2. Widget System
-Each widget is a self-contained component that displays specific metrics:
-
-#### Active Alerts Widget
-- **File**: `src/components/widgets/ActiveAlerts.tsx`
-- **Data Source**: Alert router (`src/server/api/routers/alert.ts`)
-- **Displays**: Critical, warning, and other alerts with severity indicators
-- **Features**: Date range filtering, severity-based color coding
-
-#### Device Status Widget
-- **File**: `src/components/widgets/DeviceStatus.tsx`
-- **Data Source**: Device router (`src/server/api/routers/device.ts`)
-- **Displays**: Top 5 states by device availability percentage
-- **Features**: Real-time status monitoring, geographic grouping
-
-#### Availability Status Widget
-- **File**: `src/components/widgets/AvailabilityStatus.tsx`
-- **Displays**: Overall network availability as a pie chart
-- **Features**: Percentage calculation, visual status representation
-
-#### Processors Status Widget
-- **File**: `src/components/widgets/ProcessorsStatus.tsx`
-- **Data Source**: Processor router (`src/server/api/routers/processor.ts`)
-- **Displays**: Average processor usage across all devices
-- **Features**: Usage percentage calculation, pie chart visualization
-
-#### Memory Pool Status Widget
-- **File**: `src/components/widgets/MemoryPoolStatus.tsx`
-- **Data Source**: Mempool router (`src/server/api/routers/mempool.ts`)
-- **Displays**: Average memory usage across all devices
-- **Features**: Memory percentage calculation, visual indicators
-
-#### Histogram Widget
-- **File**: `src/components/widgets/Histogram.tsx`
-- **Displays**: Device uptime distribution in day ranges
-- **Features**: Bar chart with 10-day bins, uptime analysis
-
-#### PDF Report Widget
-- **File**: `src/components/widgets/PDFReport.tsx`
-- **Purpose**: Generate PDF reports from dashboard data
-- **Features**: HTML to PDF conversion, widget aggregation
-
-### 3. Alert Management
-- **File**: `src/pages/alertas.tsx`
-- **Features**: 
-  - Alert listing with filtering by date range
-  - Device location and status information
-  - Real-time alert updates
-
-### 4. Authentication System
-- **Files**: `src/server/auth/`, `src/pages/login.tsx`
-- **Provider**: NextAuth.js with Prisma adapter
-- **Features**: Session management, user authentication
-
-## API Architecture
-
-### tRPC Routers
-
-#### Device Router (`src/server/api/routers/device.ts`)
-- **Endpoint**: `/api/device/get`
-- **Purpose**: Fetch and process network device data
-- **Features**:
-  - Date range filtering
-  - Geographic grouping by Mexican states
-  - Status aggregation
-  - Device metadata extraction
-
-#### Alert Router (`src/server/api/routers/alert.ts`)
-- **Endpoint**: `/api/alert/get`
-- **Purpose**: Retrieve and process alert data
-- **Features**:
-  - Alert severity classification
-  - Device association
-  - Status tracking
-
-#### Processor Router (`src/server/api/routers/processor.ts`)
-- **Endpoint**: `/api/processor/get`
-- **Purpose**: Process CPU usage metrics
-- **Data Processing**: JSON parsing, usage calculation
-
-#### Mempool Router (`src/server/api/routers/mempool.ts`)
-- **Endpoint**: `/api/mempool/get`
-- **Purpose**: Process memory pool usage data
-- **Data Processing**: Memory percentage calculation
+### Development Tools
+- **Build Tool**: Next.js with Turbopack
+- **ESLint**: Code linting
+- **Prettier**: Code formatting
+- **TypeScript**: Static type checking
 
 ## Database Schema
 
-### User Management
-```sql
--- Authentication tables (NextAuth.js)
-Account     # OAuth account information
-Session     # User sessions
-User        # User profiles
-Credential  # User credentials
+The application uses five main database models:
+
+### User Model
+```prisma
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String    @unique
+  password      String
+  emailVerified DateTime?
+  image         String?
+  accounts      Account[]
+  sessions      Session[]
+  credentials   Credential[]
+}
 ```
 
-### Core Tables
-The application primarily works with JSON data files but uses Prisma for authentication:
-- `devices.json`: Network device inventory and status
-- `processors.json`: CPU usage metrics
-- `mempools.json`: Memory pool statistics
-
-## Security Features
-
-1. **Authentication**: NextAuth.js with session management
-2. **Password Hashing**: bcryptjs for secure password storage
-3. **Type Safety**: Zod validation for API inputs
-4. **Environment Variables**: Secure configuration management
-
-## UI/UX Design
-
-### Layout System
-- **Responsive Grid**: CSS Grid with 4-column layout
-- **Navigation**: Fixed sidebar with route-based highlighting
-- **User Interface**: Clean, professional design with Tailwind CSS
-
-### Color Scheme
-- **Primary**: Navy blue (#2A4365)
-- **Success**: Green indicators for healthy status
-- **Warning**: Yellow for warnings
-- **Critical**: Red for critical alerts
-- **Neutral**: Gray scale for secondary information
-
-### Interactive Elements
-- **Date Pickers**: Range selection for data filtering
-- **Hover Effects**: Tooltips and visual feedback
-- **Loading States**: Progress indicators for async operations
-
-## Performance Optimizations
-
-1. **React Optimizations**:
-   - `useMemo` for expensive calculations
-   - Component memoization where appropriate
-   - Efficient re-rendering patterns
-
-2. **Data Processing**:
-   - Client-side filtering and aggregation
-   - Lazy loading of heavy components
-   - Efficient JSON parsing
-
-3. **Build Optimizations**:
-   - Next.js automatic optimizations
-   - Turbopack for faster development builds
-   - Tree shaking for smaller bundles
-
-## Development Workflow
-
-### Scripts
-```bash
-npm run dev          # Development server with Turbopack
-npm run build        # Production build
-npm run start        # Production server
-npm run lint         # ESLint checking
-npm run lint:fix     # Auto-fix linting issues
-npm run typecheck    # TypeScript type checking
-npm run format:check # Prettier format checking
-npm run format:write # Auto-format code
+### Account Model
+```prisma
+model Account {
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  // OAuth fields...
+  user              User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
 ```
 
-### Database Operations
-```bash
-npm run db:generate  # Generate Prisma migrations
-npm run db:migrate   # Deploy migrations
-npm run db:push      # Push schema changes
-npm run db:studio    # Open Prisma Studio
+### Session Model
+```prisma
+model Session {
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
 ```
 
-## Deployment Considerations
+### Credential Model
+```prisma
+model Credential {
+  id       String @id @default(cuid())
+  username String
+  password String
+  userId   String
+  user     User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+```
+
+### Report Model
+```prisma
+model Report {
+  id          String   @id @default(cuid())
+  content     String
+  createdAt   DateTime @default(now())
+}
+```
+
+## API Architecture
+
+The API is built using tRPC with the following router structure:
+
+### Root Router
+Located in `src/server/api/root.ts`, it combines all sub-routers:
+
+```typescript
+export const appRouter = createTRPCRouter({
+  post: postRouter,
+  alert: alertRouter,
+  device: deviceRouter,
+  processor: processorRouter,
+  mempool: mempoolRouter,
+  auth: authRouter,
+  report: reportRouter,
+});
+```
+
+### Individual Routers
+
+#### Alert Router (`alert.ts`)
+- `get`: Retrieve all alerts
+
+#### Device Router (`device.ts`)
+- `get`: Get all monitored devices
+
+#### Processor Router (`processor.ts`)
+- `get`: Get all processor information
+
+#### Memory Pool Router (`mempool.ts`)
+- `get`: Get all memory pool data
+
+#### Auth Router (`auth.ts`)
+- `register`: User registration
+
+#### Report Router (`report.ts`)
+- `getReports`: Get all reports
+- `getReport`: Get specific report
+- `createReport`: Generate new report
+- `deleteReport`: Remove report
+
+## Authentication System
+
+The application uses NextAuth.js with a custom credentials provider:
+
+### Configuration
+Located in `src/server/auth/config.ts`:
+
+```typescript
+export const authConfig = {
+  callbacks: {
+    session: ({ session, token }) => ({
+      ...session,
+      user: {
+        ...session.user,
+        id: token.sub,
+      },
+    }),
+  },
+  providers: [
+    CredentialsProvider({
+      name: "credentials",
+      credentials: {
+        email: { label: "Email", type: "email" },
+        password: { label: "Password", type: "password" }
+      },
+      async authorize(credentials) {
+        // Custom authentication logic with bcrypt
+      }
+    })
+  ],
+}
+```
+
+### Security Features
+- Password hashing with bcrypt
+- Session management
+- CSRF protection
+- Secure cookie handling
+- JWT token validation
+
+### External APIs
+- **Observium API**: Network monitoring data integration
+- **Database**: PostgreSQL for persistent data storage
+
+### Environment Configuration
+Configuration managed through `src/env.js` with validation:
+- Database connection strings
+- Authentication secrets
+- API endpoints
+- External service credentials
+
+## Component Structure
+
+### Core Components
+
+#### Sidebar (`Sidebar.tsx`)
+- Navigation menu
+- User session management
+- Route highlighting
+
+#### Widgets (`widgets/`)
+- `ActiveAlerts.tsx`: Real-time alert display
+- `AvailabilityStatus.tsx`: Device availability monitoring
+- `DeviceStatus.tsx`: Device health dashboard
+- `Histogram.tsx`: Data visualization charts
+- `LastRebooted.tsx`: Device uptime tracking
+- `MemoryPoolStatus.tsx`: Memory utilization display
+- `ProcessorsStatus.tsx`: CPU performance metrics
+- `SeeMore.tsx`: Expandable data views
+
+#### Utility Components
+- `DatePicker.tsx`: Date selection interface
+- `TimePicker.tsx`: Time selection interface
+- `Modal.tsx`: Modal dialog component
+- `ReportGenerator.tsx`: Report creation interface
+- `UserIcon.tsx`: User avatar component
+
+## Pages and Routes
+
+### Public Pages
+- `/registro`: User registration
+- `/unauthorized`: Access denied page
+
+### Protected Pages
+- `/`: Dashboard (requires authentication)
+- `/alertas`: Alert management interface
+- `/reportes`: Report generation and viewing
+
+### API Routes
+- `/api/report/[id]`: Report-specific endpoints
+
+## Development Setup
+
+### Prerequisites
+- Node.js 18+ 
+- PostgreSQL database
+- npm or yarn package manager
+
+### Installation Steps
+1. Clone the repository
+2. Install dependencies: `npm install`
+3. Set up environment variables
+4. Initialize database: `npx prisma migrate dev`
+5. Start development server: `npm run dev`
 
 ### Environment Variables
-- `DATABASE_URL`: PostgreSQL connection string
-- `NEXTAUTH_SECRET`: Authentication secret key
-- `NEXTAUTH_URL`: Application URL for authentication
+```env
+DATABASE_URL="postgresql://username:password@localhost:5432/xcien_db"
+NEXTAUTH_SECRET="your-nextauth-secret"
+NEXTAUTH_URL="http://localhost:3000"
+```
 
-### Production Setup
-1. PostgreSQL database setup
-2. Environment variable configuration
-3. Build and deployment pipeline
-4. SSL/TLS certificate setup
+### Database Commands
+- `npx prisma migrate dev`: Apply migrations
+- `npx prisma generate`: Generate Prisma client
+- `npx prisma studio`: Open database GUI
+- `npx prisma db push`: Push schema changes
+- `npx prisma db pull`: Pull schema changes
 
-## Future Enhancements
+## Deployment Options
 
-### Potential Features
-1. **Real-time Updates**: WebSocket integration for live data
-2. **Advanced Analytics**: Machine learning for predictive monitoring
-3. **Mobile App**: React Native companion application
-4. **API Documentation**: OpenAPI/Swagger documentation
-5. **Monitoring Alerts**: Email/SMS notification system
-6. **Data Export**: CSV/Excel export functionality
-7. **Custom Dashboards**: User-configurable widget layouts
+### Cloud Deployment (Recommended)
+- **Vercel**: Recommended for Next.js applications
+- **Prisma Cloud**: Managed database hosting
+
+### Local Production Build
+
+#### Running Production Build
+```bash
+npm run build
+npm start
+```
+
+#### Environment Setup
+- Configure production database
+- Set secure environment variables
+- Enable SSL/TLS for database connections
+- Configure reverse proxy (nginx/Apache)
+
+#### Database Migration
+```bash
+npx prisma migrate deploy
+```
+
+## Security Considerations
+
+### Authentication Security
+- bcrypt password hashing (salt rounds: 12)
+- Secure session management
+- CSRF token validation
+- HTTPOnly cookies
+
+### Database Security
+- Parameterized queries (Prisma ORM)
+- Connection string encryption
+- Role-based access control
+- Data validation with Zod schemas
+
+### Application Security
+- TypeScript for type safety
+- Input validation on all endpoints
+- Environment variable protection
+- Secure headers configuration
+
+### Best Practices
+- Regular dependency updates
+- Security audit scanning
+- Error handling without information leakage
+- Rate limiting considerations
+- HTTPS enforcement in production
+
+## Future Work
+
+### Proposed Features
+- Real-time alert notifications
+- Enhanced reporting capabilities
+- User role management
+- Integration with external monitoring tools
+- Performance optimizations
+- Improved UI/UX design
 
 ### Technical Improvements
-1. **Caching Strategy**: Redis integration for performance
-2. **Database Migration**: Move from JSON files to full database
-3. **Microservices**: Split into smaller, focused services
-4. **Testing Suite**: Comprehensive unit and integration tests
-5. **CI/CD Pipeline**: Automated testing and deployment
+- Implement caching strategies for big requests
+- Add pagination for large lists of data
+- Add unit and integration tests
+- Improve error handling and logging
 
-## Troubleshooting
+### Adding New Pages
+- Start by creating a new page in `src/pages/`, e.g., `src/pages/new-feature.tsx`
+- Export a React component as default
+- Next.js will automatically handle routing
 
-### Common Issues
-1. **Database Connection**: Check DATABASE_URL and PostgreSQL status
-2. **Build Errors**: Verify Node.js version and dependencies
-3. **Authentication Issues**: Check NEXTAUTH configuration
-4. **Data Loading**: Verify JSON file paths and formats
+### Adding New Components
+- Create a new component in `src/components/`, e.g., `src/components/NewComponent.tsx`
+- Import and use it in the relevant pages or other components
+- Ensure to follow the existing component structure and styling conventions
 
-### Debugging Tools
-1. **Next.js DevTools**: Built-in development tools
-2. **React DevTools**: Component inspection
-3. **Prisma Studio**: Database GUI
-4. **tRPC DevTools**: API call inspection
+### Adding New API Endpoints
+- Create a new endpoint in an existing router or a new router in `src/server/api/routers/`
+- Define the endpoint logic using tRPC
+- Ensure to validate input using Zod schemas
+- Export the router and include it in the main `root.ts` router
 
-### Development Setup
-1. Clone repository: `git clone https://github.com/Diego-HC/xcien-dashboard.git`
-2. Install dependencies: `npm install`
-3. Setup environment variables
-4. Run database migrations: `npm run db:generate`
-5. Start development server: `npm run dev`
+### Adding New Database Models
+- Update the Prisma schema in `prisma/schema.prisma`
+- Run `npx prisma migrate dev` to create a new migration
+- Generate the Prisma client with `npx prisma generate`
+- Use the new model in your API routes and business logic
 
